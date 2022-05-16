@@ -28,8 +28,11 @@ a {
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  margin: 6px 18px;
+  margin: 0 auto;
+  max-width: 1400px;
   position: relative;
+  /* border: 2px solid red; */
+  width: 100%;
 }
 .marquee-text {
   font-size: 29px;
@@ -114,9 +117,10 @@ span.text-red {
 }
 .product-image {
   border-radius: 15px;
-  background-color: #ebebeb;
+  /* background-color: #ebebeb; */
   transform: scale(1, 1);
   transition: transform 0.5s ease;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
 }
 
 .product-name {
@@ -203,7 +207,8 @@ span.text-red {
 .products-heading {
   text-align: center;
   margin: 40px 0px;
-  color: #324d67;
+  /* color: #324d67; */
+  background-color: linear-gradient(60deg, #29323c 0%, #485563 100%);
 }
 .products-heading h2 {
   font-size: 40px;
