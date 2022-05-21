@@ -10,6 +10,16 @@ export const StateContext = ({ childern }) => {
   const [totalQuantities, setTotalQuantities] = useState();
   const [qty, setQty] = useState(1);
 
+  const incQty = () => {
+    setQty((prev) => prev + 1);
+  };
+  const decQty = () => {
+    setQty((prev) => {
+      if (prev - 1 < 1) return 1;
+      return prev - 1;
+    });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -18,9 +28,13 @@ export const StateContext = ({ childern }) => {
         totalPrice,
         totalQuantities,
         qty,
+        incQty,
+        decQty,
       }}
     >
       {childern}
     </Context.Provider>
   );
 };
+
+export const useStateContext = () => useContext(Context);
