@@ -10,6 +10,9 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(0);
 
+  let foundProduct;
+  let index;
+
   const incQty = () => {
     setQty((prev) => prev + 1);
   };
@@ -45,6 +48,31 @@ export const StateContext = ({ children }) => {
     toast.success(`${qty} ${product.name} added to the cart.`);
   };
 
+  const toggleCartItemQuantity = (id, value) => {
+    foundProduct = cartItems.find((item) => item._id === id);
+    index = cartItems.findIndex((product) => product._id === id);
+
+    if (value === "inc") {
+      //Never mutate state instead create new instance of it;
+      //we are taking all previous values
+      setCartItems([
+        ...cartItems,
+        { ...foundProduct, quantity: foundProduct.quantity + 1 },
+      ]);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+    } else if (value === "dec") {
+      if (foundProduct.quantity > 1) {
+        setCartItems([
+          ...cartItems,
+          { ...foundProduct, quantity: foundProduct.quantity - 1 },
+        ]);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+      }
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -57,6 +85,7 @@ export const StateContext = ({ children }) => {
         incQty,
         decQty,
         onAdd,
+        toggleCartItemQuantity,
       }}
     >
       {children}
